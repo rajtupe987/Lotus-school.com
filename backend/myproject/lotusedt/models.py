@@ -17,15 +17,25 @@ class StudentModel(models.Model):
     def __str__(self):
         return self.name
 
+from django.db import models
+
+
+
+class Expertise(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+
 class Instructor(models.Model):
+    expertise = models.ManyToManyField(Expertise)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    expertise = models.CharField(max_length=255)
     email = models.EmailField()
     password = models.CharField(max_length=255, validators=[MinLengthValidator(1)])
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
-
-

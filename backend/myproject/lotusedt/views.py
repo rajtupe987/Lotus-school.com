@@ -8,7 +8,7 @@ from django.contrib.auth.hashers import make_password, check_password
 import json
 import jwt
 from rest_framework.decorators import api_view
-from .models import StudentModel
+from .models import StudentModel,Expertise
 from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import PermissionDenied
 
@@ -38,6 +38,10 @@ def welcome_path(request):
 
 
             #  ALL ABOUT STUDENT PART #
+
+
+
+
 # register route
 @api_view(['POST'])
 def register(request):
@@ -136,19 +140,35 @@ def delete_student(request, student_id):
 
 # ALL about instructor
 
-
-
 from .models import Instructor
-from .serializers import InstructorSerializer
+from .serializers import InstructorSerializer,ExpertiseSerializer
+
+
+@api_view(['POST'])
+def create_expertise(request):
+    if request.method == 'POST':
+        serializer = ExpertiseSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+@api_view(['GET'])
+def get_all_expertise(request):
+    if request.method == 'GET':
+        expertise = Expertise.objects.all()
+        serializer = ExpertiseSerializer(expertise, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    
 
 @api_view(['POST'])
 def create_instructor(request):
-
     if request.method == 'POST':
         data = request.data.copy()  # Create a copy of the data to manipulate
         password = data.pop('password')  # Remove the password from data
-        
-         # Check if an instructor with the provided email already exists
+
         email = data.get('email')
         if Instructor.objects.filter(email=email).exists():
             return Response({"error": "An instructor with this email already exists."}, status=status.HTTP_400_BAD_REQUEST)
@@ -161,10 +181,9 @@ def create_instructor(request):
 
         serializer = InstructorSerializer(data=data)
         if serializer.is_valid():
-            serializer.save()
+            instructor = serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
 
 
 

@@ -1,0 +1,30 @@
+
+<a href="http://localhost:4200/verify-instructor">login</a>
+<div class="container"><div class="form-container">
+  <form [formGroup]="instructorForm" (ngSubmit)="createInstructor()">
+    <div>
+      <label>First Name:</label>
+      <input type="text" formControlName="first_name">
+    </div>
+    <div>
+      <label>Last Name:</label>
+      <input type="text" formControlName="last_name">
+    </div>
+    <div>
+      <label>Email:</label>
+      <input type="email" formControlName="email" [value]="">
+    </div>
+    <div>
+      <label>Password:</label>
+      <input type="password" formControlName="password" [value]="">
+    </div>
+    <div>
+      <label>Expertise:</label>
+      <div *ngFor="let expertise of expertiseList">
+        <input type="checkbox" [value]="expertise.id" (change)="toggleExpertiseSelection(expertise.id)">
+        {{ expertise.name }}
+      </div>
+    </div>
+    <button type="submit">Create Instructor</button>
+  </form>
+</div></div>
