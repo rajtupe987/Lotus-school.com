@@ -29,6 +29,9 @@ def welcome_path(request):
             #  ALL ABOUT STUDENT PART #
 
 
+
+
+
 # ALL about student  
 
 # register route
