@@ -24,4 +24,14 @@ export class ApiService {
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.baseUrl}verify-instructor`, credentials);
   }
+
+  signup(userData: any): Observable<any> {
+    const url = `${this.baseUrl}register`;
+    return this.http.post(url, userData);
+  }
+
+  login_stduden(credentials: any): Observable<any> {
+    const url = `${this.baseUrl}login`;
+    return this.http.post(url, credentials);
+  }
 }

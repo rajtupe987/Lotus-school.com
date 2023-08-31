@@ -1,0 +1,44 @@
+<header>
+  <nav>
+      <div class="logo">
+          <img src="images/education.svg" alt="Lotus School Logo">
+      </div>
+      <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="http://localhost:4200/all-courses">Courses</a></li>
+          <li><a href="#">Departments</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="http://localhost:4200/home">Sign Up</a></li>
+      </ul>
+  </nav>
+</header>
+
+<div class="course-grid">
+  <div class="course-card" *ngFor="let course of courses; let i = index">
+    <div class="course-title">
+      {{ course.title }}
+    </div>
+    <div class="course-description">
+      {{ course.description }}
+    </div>
+    <div class="course-instructors">
+      Instructors:
+      <div *ngFor="let instructor of course.instructors" class="instructor">
+        {{ instructor.name }} ({{ instructor.expertise.join(', ') }})
+      </div>
+    </div>
+    <div class="course-department">
+      Department: {{ course.department.name }}
+    </div>
+    <div class="course-created-at">
+      Created At: {{ course.created_at | date }}
+    </div>
+    <button class="enroll-button">Enroll</button>
+  </div>
+</div>
+
+<div class="pagination">
+  <button [disabled]="currentPage === 1" (click)="fetchCourses(currentPage - 1)">Previous</button>
+  Page {{ currentPage }} of {{ totalPages }}
+  <button [disabled]="currentPage === totalPages" (click)="fetchCourses(currentPage + 1)">Next</button>
+</div>

@@ -1,0 +1,103 @@
+
+    <nav class="navbar">
+		<div class="navbar-container container">
+			<div class="hamburger-lines">
+				<span class="line line1"></span>
+				<span class="line line2"></span>
+				<span class="line line3"></span>
+			</div>
+			<ul class="menu-items">
+				<li><a href="#home">Home</a></li>
+				<li><a href="http://localhost:4200/all-courses">Courses</a></li>
+				<li><a href="#food">Departments</a></li>
+				<li><a href="#food-menu">Contact</a></li>
+				<li><a href="#testimonials">Testimonial</a></li>
+				<li><a href="http://localhost:4200/register-student">Register</a></li>
+             
+			</ul>
+            <div>
+                <img src="https://photos.prnewswire.com/prnfull/20160613/378501LOGO" alt="">
+            </div>
+			
+		</div>
+	</nav>
+
+<section class="hero">
+    <h1>Welcome to Lotus School</h1>
+    <p>Transforming Education with Innovation</p>
+    <a href="http://localhost:4200/all-courses" class="btn-enroll">Enroll Now</a>
+</section>
+
+<section class="departments">
+    <h2>Departments</h2>
+    <div class="department-list">
+        <div class="department-card" *ngFor="let department of departments; let odd = odd; let even = even">
+            <div class="department-header" (click)="toggleCourses(department)">
+                <h3>{{ department.name }}</h3>
+            </div>
+            <div class="course-list" [class.hidden]="!department.showCourses">
+                <div class="course-card" *ngFor="let course of department.courses">
+                    <h4>{{ course.title }}</h4>
+                    <p>{{ course.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="courses">
+    <h2>Featured Courses</h2>
+    <div class="course-grid">
+        <!-- Course Cards Here -->
+        <div class="course-card">
+            <h3>Web Development</h3>
+            <p>Learn to build modern websites.</p>
+        </div>
+        <div class="course-card">
+            <h3>Data Science Fundamentals</h3>
+            <p>Explore the world of data analysis.</p>
+        </div>
+        <!-- Add more course cards here -->
+    </div>
+</section>
+
+
+<section class="testimonials">
+    <h2>Student Testimonials</h2>
+    <div class="testimonial-cards">
+        <!-- Testimonial Cards Here -->
+        <div class="testimonial-card">
+            <p>"The instructors are knowledgeable and supportive."</p>
+            <span>- John Doe, Computer Science student</span>
+        </div>
+        <div class="testimonial-card">
+            <p>"Lotus School provided me with practical skills."</p>
+            <span>- Jane Smith, Business Administration student</span>
+        </div>
+        <!-- Add more testimonial cards here -->
+    </div>
+</section>
+
+<section class="placements">
+    <h2>Recent Placements</h2>
+    <div class="placement-list">
+        <!-- Placement Information Here -->
+        <div class="placement">
+            <p>John Doe - Placed at TechCo</p>
+        </div>
+        <div class="placement">
+            <p>Jane Smith - Placed at MegaCorp</p>
+        </div>
+        <!-- Add more placement information here -->
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2023 Lotus School. All rights reserved.</p>
+    <div>
+        <a href="http://localhost:4200/admin-page">Admin </a>
+        <a href="http://localhost:4200/instructor-page"> Instructor</a>
+    </div>
+
+</footer>

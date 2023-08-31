@@ -39,3 +39,24 @@ class Instructor(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+
+
+
+class Department(models.Model):
+    name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Course(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    instructors = models.ManyToManyField(Instructor)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title

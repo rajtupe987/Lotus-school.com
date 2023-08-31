@@ -1,0 +1,84 @@
+/* Navbar Styles */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f2f2f2;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+}
+
+.nav-links li {
+  margin-right: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.course-card {
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  padding: 15px;
+}
+
+.course-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.course-description {
+  margin-top: 8px;
+}
+
+.course-instructors {
+  margin-top: 8px;
+}
+
+.instructor {
+  margin-right: 5px;
+  display: inline-block;
+}
+
+.course-department {
+  margin-top: 8px;
+  font-style: italic;
+}
+
+.course-created-at {
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.enroll-button {
+  margin-top: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 10px;
+}
