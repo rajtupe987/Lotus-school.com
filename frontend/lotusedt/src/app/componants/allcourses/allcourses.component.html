@@ -67,11 +67,9 @@
         <p>Created At: {{ selectedCourse.created_at | date }}</p>
       
         <!-- Enrollment Form -->
-        <form (submit)="enrollInCourse(selectedCourse.id)" #enrollmentForm="ngForm">
+        <form (submit)="enrollInCourse(selectedCourse.id)" name="enrollmentForm" required>
           <h4>Fill the deteials and Enroll</h4>
-          <label for="email">Email:</label>
-          <input type="email" id="email" [(ngModel)]="enrollmentData.email" required (input)="onEmailInput($event)">
-
+          
           <label for="enrollment_date">Enrollment Date:</label>
           <input type="date" id="enrollment_date" [(ngModel)]="enrollmentData.enrollment_date" required>
           <button type="submit">Enroll</button>

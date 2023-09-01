@@ -64,19 +64,11 @@ class Course(models.Model):
 
 
 
-from django.core.exceptions import ValidationError
-
 class Enrollment(models.Model):
     student = models.ForeignKey(StudentModel, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     enrollment_date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
-    email = models.EmailField()
 
-    def clean(self):
-        # Ensure that all fields are filled and validate email
-        if not self.student or not self.course or not self.enrollment_date or not self.email:
-            raise ValidationError("All fields are mandatory.")
-    
     def __str__(self):
-        return f"{self.student} - {self.course}"
+        return f"{self.student} - {self.course}"   

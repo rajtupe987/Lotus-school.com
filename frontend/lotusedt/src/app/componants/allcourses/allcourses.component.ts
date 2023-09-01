@@ -82,14 +82,13 @@ export class AllcoursesComponent implements OnInit {
   enrollmentData: any = {
     student: null, // Student ID will be set automatically
     course: null,  // Course ID will be set automatically
-    enrollment_date: '',
-    email: ''
+    enrollment_date: ''
   };
 
 
   // Function to enroll in a course
 enrollInCourse(courseId: number) {
-  console.log('Email value:', this.enrollmentData.email);
+  
   const token = localStorage.getItem('token');
   if (!token) {
     alert('Please log in to enroll in a course.');
@@ -111,9 +110,6 @@ enrollInCourse(courseId: number) {
   // Format the enrollment date as "YYYY-MM-DD"
   this.enrollmentData.enrollment_date = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
 
-  this.enrollmentData.email = 'test@example.com';  // Set a default email for testing
-  console.log('Email value:', this.enrollmentData.email);
-  
 
   this.http.post('http://localhost:8000/enroll/', this.enrollmentData, { headers }).subscribe(
     (response) => {

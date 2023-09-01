@@ -66,28 +66,11 @@ class DepartmentSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'created_at', 'courses']
 
 
-class EnrollmentSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField()  # Include the email field
 
+class EnrollmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Enrollment
-        fields = ['student', 'course', 'enrollment_date', 'email']  # Specify the fields you want to include
-
-    def validate(self, data):
-        """
-        Custom validation to ensure all fields are provided.
-        """
-        student = data.get('student')
-        course = data.get('course')
-        enrollment_date = data.get('enrollment_date')
-        email = data.get('email')
-
-        if not student or not course or not enrollment_date or not email:
-            raise serializers.ValidationError("All fields are mandatory.")
-
-        # You can add additional validation logic here if needed
-
-        return data
+        fields = '__all__'
 
 
 # serializers.py
