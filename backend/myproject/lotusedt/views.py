@@ -16,7 +16,7 @@ from django.core.exceptions import PermissionDenied
 
 from django.conf import settings
 
-
+from .serializers import  EnrollmentSerializer
 # this is for checking user is admin or not
 
 # just basic checking route
@@ -113,13 +113,61 @@ def login(request):
 
 
 
+@api_view(['POST'])
+def enroll_student(request):
+    serializer = EnrollmentSerializer(data=request.data)
+    if serializer.is_valid():
+        student = serializer.validated_data['student']
+        course = serializer.validated_data['course']
+        email = serializer.validated_data['email']
 
+        # Check if the student is already enrolled in the same course
+        existing_enrollment = Enrollment.objects.filter(student=student, course=course).first()
+        if existing_enrollment:
+            return Response({"message": "You are already enrolled in this course."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Create a new enrollment with all the data
+        enrollment = Enrollment(student=student, course=course, enrollment_date=serializer.validated_data['enrollment_date'], email=email)
+        enrollment.save()
+
+        return Response({"message": "Enrollment successful."}, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET'])
+def get_course_details(request, course_id):
+    try:
+        course = Course.objects.get(id=course_id)
+    except Course.DoesNotExist:
+        return Response({"message": "Course not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = getcourseSerialiser(course)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+# Django views.py
+
+@api_view(['GET']) # Ensure only authenticated users can access this endpoint
+def get_student_profile(request):
+    student = request.user  # Assuming the authenticated user is a student
+    email = student.email
+    enrollments = student.enrollment_set.all()  # Retrieve the student's enrollments
+
+    # Serialize the data (you can use a serializer)
+    data = {
+        'email': email,
+        'enrollments': []  # Serialize enrollments as needed
+    }
+
+    return Response(data)
 
             
 
 # ALL about instructor
 
-from .models import Instructor
+from .models import Instructor,Enrollment
 from .serializers import InstructorSerializer,ExpertiseSerializer
    
 
@@ -166,8 +214,6 @@ def varifyintructor(request):
             return JsonResponse(response)
         except Exception as e:
             return JsonResponse({"ok": False, "msg": str(e)})
-
-
 
 
 
@@ -270,6 +316,11 @@ def create_course(request):
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+def get_all_instructors(request):
+    instructors = Instructor.objects.all()
+    serializer = InstructorSerializer(instructors, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(['PUT'])
@@ -346,3 +397,13 @@ def get_all_courses(request):
 
     return Response(response_data, status=status.HTTP_200_OK)
 
+# views.py
+
+from .models import Department
+from .serializers import DepartmentWithCoursesSerializer
+
+@api_view(['GET'])
+def get_departments_with_courses_and_students(request):
+    departments = Department.objects.all()
+    serializer = DepartmentWithCoursesSerializer(departments, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Instructor,Expertise, Department
+from .models import Instructor,Expertise,StudentModel, Department, Enrollment
 
 class InstructorSerializer(serializers.ModelSerializer):
     expertise = serializers.PrimaryKeyRelatedField(queryset=Expertise.objects.all(), many=True)
@@ -64,3 +64,58 @@ class DepartmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Department
         fields = ['id', 'name', 'created_at', 'courses']
+
+
+class EnrollmentSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField()  # Include the email field
+
+    class Meta:
+        model = Enrollment
+        fields = ['student', 'course', 'enrollment_date', 'email']  # Specify the fields you want to include
+
+    def validate(self, data):
+        """
+        Custom validation to ensure all fields are provided.
+        """
+        student = data.get('student')
+        course = data.get('course')
+        enrollment_date = data.get('enrollment_date')
+        email = data.get('email')
+
+        if not student or not course or not enrollment_date or not email:
+            raise serializers.ValidationError("All fields are mandatory.")
+
+        # You can add additional validation logic here if needed
+
+        return data
+
+
+# serializers.py
+
+from rest_framework import serializers
+
+class EnrolledStudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudentModel
+        fields = ['id', 'first_name', 'last_name', 'email', 'age']  # Include the fields you need
+
+
+# serializers.py
+
+class CourseWithEnrolledStudentsSerializer(serializers.ModelSerializer):
+    enrolled_students = EnrolledStudentSerializer(many=True, read_only=True, source='enrollments.student')
+
+    class Meta:
+        model = Course
+        fields = ['id', 'title', 'description', 'enrolled_students']
+
+
+# serializers.py
+
+class DepartmentWithCoursesSerializer(serializers.ModelSerializer):
+    courses = CourseWithEnrolledStudentsSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Department
+        fields = ['id', 'name', 'courses']
+

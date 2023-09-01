@@ -13,7 +13,7 @@ class StudentModel(models.Model):
     email = models.EmailField(unique=True, validators=[EmailValidator()])
     pass_hash = models.CharField(max_length=255, validators=[MinLengthValidator(1)])
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='student')
-
+    is_active = models.BooleanField(default=True)
     def __str__(self):
         return self.name
 
@@ -60,3 +60,23 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+
+
+from django.core.exceptions import ValidationError
+
+class Enrollment(models.Model):
+    student = models.ForeignKey(StudentModel, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    enrollment_date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    email = models.EmailField()
+
+    def clean(self):
+        # Ensure that all fields are filled and validate email
+        if not self.student or not self.course or not self.enrollment_date or not self.email:
+            raise ValidationError("All fields are mandatory.")
+    
+    def __str__(self):
+        return f"{self.student} - {self.course}"

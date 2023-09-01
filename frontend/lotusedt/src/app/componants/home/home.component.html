@@ -11,9 +11,8 @@
 				<li><a href="http://localhost:4200/all-courses">Courses</a></li>
 				<li><a href="#food">Departments</a></li>
 				<li><a href="#food-menu">Contact</a></li>
-				<li><a href="#testimonials">Testimonial</a></li>
 				<li><a href="http://localhost:4200/register-student">Register</a></li>
-             
+                <li *ngIf="isAuthenticated"><a href="">{{'Hi, '+userName }}</a></li>
 			</ul>
             <div>
                 <img src="https://photos.prnewswire.com/prnfull/20160613/378501LOGO" alt="">

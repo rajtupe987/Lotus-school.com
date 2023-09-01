@@ -1,7 +1,7 @@
 // api.service.ts
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { InstructorData } from './instructor.model'; // Import the interface
 
@@ -34,4 +34,24 @@ export class ApiService {
     const url = `${this.baseUrl}login`;
     return this.http.post(url, credentials);
   }
+ 
+  createCourse(courseData: any): Observable<any> {
+    const createUrl = `${this.baseUrl}create/`;
+    return this.http.post(createUrl, courseData);
+  }
+
+
+  
+  getCourseDetails(courseId: number): Observable<any> {
+    // Create headers with the authorization token
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('token')
+    });
+
+    const url = `${this.baseUrl}/each_course/${courseId}/`;
+    return this.http.get(url, { headers });
+  }
+
+
+  
 }

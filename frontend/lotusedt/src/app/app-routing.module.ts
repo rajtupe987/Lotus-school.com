@@ -7,15 +7,18 @@ import { AdminComponent } from './componants/admin/admin.component';
 import { InstructorPageComponent } from './componants/instructor-page/instructor-page.component';
 import { AllcoursesComponent } from './componants/allcourses/allcourses.component';
 import { RegisterComponent } from './componants/register/register.component';
+import { CreatecourseComponent } from './componants/createcourse/createcourse.component';
+
+
 
 const routes: Routes = [
   {path:'',redirectTo:'/home',pathMatch:'full'},
   {path:'admin-page',redirectTo:'/admin-page',pathMatch:'full'},
   {path:'instructor-page',redirectTo:'/instructor-page',pathMatch:'full'},
   {path:'register-student',redirectTo:'/register-student',pathMatch:'full'},
-  
+  {path:'creat-course',redirectTo:'./creat-course'},
   {path:'register-student',component:RegisterComponent},
-  
+  {path:'creat-course',component:CreatecourseComponent},
   {path:'all-courses',component:AllcoursesComponent},
   {path:'all-courses',redirectTo:'/all-courses',pathMatch:'full'},
   {path:'home',component:HomeComponent},

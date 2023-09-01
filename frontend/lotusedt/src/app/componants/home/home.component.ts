@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit{
+  isAuthenticated: boolean = false;
+  userName: string | null = null;
   departments: any[] = [];
 
   constructor(private http: HttpClient) {}
@@ -17,6 +19,9 @@ export class HomeComponent implements OnInit{
 
   ngOnInit(): void {
     this.fetchDepartments();
+    // Check if user name is present in local storage
+    this.userName = localStorage.getItem('userName');
+    this.isAuthenticated = !!this.userName;
   }
 
   fetchDepartments() {

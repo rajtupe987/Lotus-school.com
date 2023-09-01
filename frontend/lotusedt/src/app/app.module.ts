@@ -12,6 +12,7 @@ import { AdminComponent } from './componants/admin/admin.component';
 import { InstructorPageComponent } from './componants/instructor-page/instructor-page.component';
 import { AllcoursesComponent } from './componants/allcourses/allcourses.component';
 import { RegisterComponent } from './componants/register/register.component';
+import { CreatecourseComponent } from './componants/createcourse/createcourse.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { RegisterComponent } from './componants/register/register.component';
     AdminComponent,
     InstructorPageComponent,
     AllcoursesComponent,
-    RegisterComponent
+    RegisterComponent,
+    CreatecourseComponent
   ],
   imports: [
     BrowserModule,

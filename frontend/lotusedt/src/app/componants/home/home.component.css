@@ -16,7 +16,7 @@ body {
 }
 
 .navbar>div>div>img{
-width: 35%;
+width: 30%;
 
 
 }
@@ -64,11 +64,11 @@ body {
   box-shadow: 0px 5px 10px 0px #aaa;
   position: fixed;
   width: 100%;
-  background: #fff;
-  color: #000;
+  background: #43a894;
   opacity: 0.85;
   height: 50px;
   z-index: 12;
+
 }
 
 .navbar-container {
@@ -82,13 +82,18 @@ body {
 .menu-items {
   order: 2;
   display: flex;
+  color: white;
+}
+.menu-items>li>a{
+    color: rgb(9, 8, 8);
 }
 
 .menu-items li {
   list-style: none;
-  margin-left: 1.5rem;
+  margin-left: 1rem;
   margin-bottom: 0.5rem;
   font-size: 1.2rem;
+  color: white;
 }
 
 .menu-items a {
@@ -130,10 +135,11 @@ body {
 }
 
 .department-header {
-    background-color: #428bca;
+    background-color: #117964;
     color: white;
     padding: 10px;
     border-radius: 5px 5px 0 0;
+    cursor: pointer
 }
 
 .course-card {

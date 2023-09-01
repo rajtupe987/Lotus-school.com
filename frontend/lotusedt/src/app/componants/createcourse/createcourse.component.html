@@ -1,0 +1,31 @@
+<div class="form-container">
+  <form class="form" (ngSubmit)="createCourse()">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" [(ngModel)]="title" required>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" [(ngModel)]="description" required></textarea>
+
+    <div class="form-group">
+      <label class="instructor-label" for="instructors">Instructors:</label>
+      <div class="instructor-grid">
+        <div *ngFor="let instructor of instructors" class="instructor">
+          <input
+            type="checkbox"
+            [value]="instructor.id"
+            (change)="toggleInstructorSelection(instructor.id)"
+            [checked]="selectedInstructors.includes(instructor.id)"
+          />
+          {{ instructor.first_name }} {{ instructor.last_name }} {{instructor.expertise}}
+        </div>
+      </div>
+    </div>
+
+    <label for="department">Department:</label>
+    <select id="department" name="department" [(ngModel)]="selectedDepartment">
+      <option *ngFor="let department of departments" [value]="department.id">{{ department.name }}</option>
+    </select>
+
+    <button type="submit">Create Course</button>
+  </form>
+</div>

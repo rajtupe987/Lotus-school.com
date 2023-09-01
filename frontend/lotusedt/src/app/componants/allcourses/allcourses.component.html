@@ -1,17 +1,25 @@
-<header>
-  <nav>
-      <div class="logo">
-          <img src="images/education.svg" alt="Lotus School Logo">
-      </div>
-      <ul class="nav-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="http://localhost:4200/all-courses">Courses</a></li>
-          <li><a href="#">Departments</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="http://localhost:4200/home">Sign Up</a></li>
-      </ul>
-  </nav>
-</header>
+<nav class="navbar">
+  <div class="navbar-container container">
+    <div class="hamburger-lines">
+      <span class="line line1"></span>
+      <span class="line line2"></span>
+      <span class="line line3"></span>
+    </div>
+    <ul class="menu-items">
+      <li><a href="#home">Home</a></li>
+      <li><a href="http://localhost:4200/all-courses">Courses</a></li>
+      <li><a href="#food">Departments</a></li>
+      <li><a href="#food-menu">Contact</a></li>
+      <li><a href="#testimonials">Testimonial</a></li>
+      <li><a href="http://localhost:4200/register-student">Register</a></li>
+
+    </ul>
+    <div>
+      <img src="https://photos.prnewswire.com/prnfull/20160613/378501LOGO" alt="">
+    </div>
+
+  </div>
+</nav>
 
 <div class="course-grid">
   <div class="course-card" *ngFor="let course of courses; let i = index">
@@ -21,21 +29,65 @@
     <div class="course-description">
       {{ course.description }}
     </div>
-    <div class="course-instructors">
+    <!-- <div class="course-instructors">
       Instructors:
       <div *ngFor="let instructor of course.instructors" class="instructor">
         {{ instructor.name }} ({{ instructor.expertise.join(', ') }})
       </div>
-    </div>
+    </div> -->
     <div class="course-department">
       Department: {{ course.department.name }}
     </div>
     <div class="course-created-at">
       Created At: {{ course.created_at | date }}
     </div>
-    <button class="enroll-button">Enroll</button>
+    <button class="enroll-button" (click)="showCourseDetails(course.id)">Enroll</button>
   </div>
 </div>
+
+
+
+<div class="modal-overlay" *ngIf="selectedCourse">
+  <div class="modal-box">
+    <button class="close-button" (click)="closeCourseDetails()">Close</button>
+    <h2>{{ selectedCourse.title }}</h2>
+    <p>{{ selectedCourse.description }}</p>
+    <p>Instructors: {{ getInstructorsString(selectedCourse.instructors) }}</p>
+    <p>Department: {{ selectedCourse.department.name }}</p>
+    <p>Created At: {{ selectedCourse.created_at | date }}</p>
+
+
+    <div class="modal-overlay" *ngIf="selectedCourse">
+      <div class="modal-box">
+        <button class="close-button" (click)="closeCourseDetails()">Close</button>
+        <h2>{{ selectedCourse.title }}</h2>
+        <p>{{ selectedCourse.description }}</p>
+        <p>Instructors: {{ getInstructorsString(selectedCourse.instructors) }}</p>
+        <p>Department: {{ selectedCourse.department.name }}</p>
+        <p>Created At: {{ selectedCourse.created_at | date }}</p>
+      
+        <!-- Enrollment Form -->
+        <form (submit)="enrollInCourse(selectedCourse.id)" #enrollmentForm="ngForm">
+          <h4>Fill the deteials and Enroll</h4>
+          <label for="email">Email:</label>
+          <input type="email" id="email" [(ngModel)]="enrollmentData.email" required (input)="onEmailInput($event)">
+
+          <label for="enrollment_date">Enrollment Date:</label>
+          <input type="date" id="enrollment_date" [(ngModel)]="enrollmentData.enrollment_date" required>
+          <button type="submit">Enroll</button>
+        </form>
+
+
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+</div>
+
 
 <div class="pagination">
   <button [disabled]="currentPage === 1" (click)="fetchCourses(currentPage - 1)">Previous</button>
