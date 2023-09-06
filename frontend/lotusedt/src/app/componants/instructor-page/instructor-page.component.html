@@ -1,16 +1,18 @@
 <header>
-    <nav>
-        <div class="logo">
-            <img src="images/education.svg" alt="Lotus School Logo">
-        </div>
-        <ul class="nav-links">
-            <li><a href="http://localhost:4200/home">Way to Home</a></li>
-            <li><a href="">Courses</a></li>
-            <li><a href="">Assignments</a></li>
-            <li><a href="">submission</a></li>
-            <li><a href="http://localhost:4200/verify-instructor">Login</a></li>
-            
-            
-        </ul>
-    </nav>
-  </header>
+  <nav>
+    <div class="logo">
+      <img src="images/education.svg" alt="Lotus School Logo">
+    </div>
+    <ul class="nav-links">
+      <li><a href="http://localhost:4200/home">Way to Home</a></li>
+      <li><a href="">Courses</a></li>
+      <li><a href="">Assignments</a></li>
+      <li><a href="">submission</a></li>
+     <li *ngIf="isInstructorLoggedIn"><a href="http://localhost:4200/create-assignment">Create Assignment</a></li>
+      <li><a href="http://localhost:4200/verify-instructor">Login</a></li>
+
+      <!-- Conditionally display "Profile" link if Token_of_instructor is present -->
+      <li *ngIf="isInstructorLoggedIn"><a href="http://localhost:4200/Instructor-profile">Profile</a></li>
+    </ul>
+  </nav>
+</header>

@@ -1,0 +1,21 @@
+<!-- create-assignment.component.html -->
+<div class="form-container">
+    <form (submit)="onSubmit()" class="assignment-form">
+      <label for="course">Select Course:</label>
+      <select id="course" name="course" [(ngModel)]="selectedCourseId" class="form-control">
+        <option *ngFor="let course of courses" [value]="course.id">{{ course.title }}</option>
+      </select>
+      <br>
+      <label for="title">Assignment Title:</label>
+      <input type="text" id="title" name="title" [(ngModel)]="assignmentTitle" class="form-control">
+      <br>
+      <label for="description">Assignment Description:</label>
+      <textarea id="description" name="description" [(ngModel)]="assignmentDescription" class="form-control"></textarea>
+      <br>
+      <label for="dueDate">Due Date:</label>
+      <input type="date" id="dueDate" name="dueDate" [(ngModel)]="dueDate" class="form-control">
+      <br>
+      <button type="submit" class="btn btn-primary">Create Assignment</button>
+    </form>
+  </div>
+  

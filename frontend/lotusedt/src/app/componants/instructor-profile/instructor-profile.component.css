@@ -1,0 +1,32 @@
+/* instructor-profile.component.css */
+
+.card {
+    width: 300px; /* Adjust the card width as needed */
+    margin: 20px auto;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+  }
+  
+  .card-header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .card-body {
+    padding: 10px;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    margin-top: 0;
+  }
+  
+  p {
+    margin: 5px 0;
+  }
+  
+  /* Customize the styling further as needed */
+  

@@ -16,7 +16,7 @@ from django.core.exceptions import PermissionDenied
 
 from django.conf import settings
 
-from .serializers import  EnrollmentSerializer
+from .serializers import  EnrollmentSerializer,AssignmentSerializer
 # this is for checking user is admin or not
 
 # just basic checking route
@@ -24,15 +24,8 @@ def welcome_path(request):
     return HttpResponse("Welcome to the Django Greetings App!")
 
 
-
-
             #  ALL ABOUT STUDENT PART #
 
-
-
-
-
-# ALL about student  
 
 # register route
 @api_view(['POST'])
@@ -65,6 +58,7 @@ def register(request):
         except Exception as e:
             return JsonResponse({"ok": False, "msg": str(e)})
         
+from datetime import datetime, timedelta  # Import datetime and timedelta
 
 # login route
 @api_view(['POST'])
@@ -76,7 +70,6 @@ def login(request):
             email = data.get('email')
             password = data.get('pass')  # Get the user-entered password
 
-           
             user = StudentModel.objects.filter(email=email).first()
 
              # Validate required fields
@@ -86,25 +79,39 @@ def login(request):
             if not user:
                 return JsonResponse({"ok": False, "msg": "User with this email not found"})
 
-               
-            stored_hashed_password = user.pass_hash
-            hashed_entered_password = make_password(password)
-
-    
+            
             if not check_password(password, user.pass_hash):  # Compare the passwords
                 return JsonResponse({"ok": False, "msg": "Invalid email or password"})
 
-            payload = {"userId": user.id}
+            # Calculate the expiration time (1 minute from the current time)
+            expiration_time = datetime.utcnow() + timedelta(minutes=10)
+
+            # Calculate the expiration time for the refresh token (e.g., 7 days from the current time)
+            refresh_token_expiration = datetime.utcnow() + timedelta(days=7)
+
+            payload = { "userId": user.id,
+                       "userName": user.name,
+                       "exp": expiration_time
+                 }
+            
+            # Create the payload for the refresh token
+            refresh_token_payload = {
+                "userId": user.id,
+                "exp": refresh_token_expiration  # Set the refresh token expiration time
+            }
+           
+           
+           
             secret_key = "rajtupe987"  # Replace with your actual secret key
             token = jwt.encode(payload, secret_key, algorithm='HS256').decode('utf-8')  # Decode the bytes to string
+            refresh_token = jwt.encode(refresh_token_payload, secret_key, algorithm='HS256').decode('utf-8')
 
             response = {
                 "ok": True,
                 "token": token,
+                "refresh_token": refresh_token,
                 "msg": "Login Successful",
-                "id": user.id,
-                "userName": user.name,
-                "role":user.role
+
             }
 
             return JsonResponse(response)
@@ -143,11 +150,61 @@ def get_course_details(request, course_id):
 
             
 
-# ALL about instructor
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+from .models import StudentModel, Enrollment
+
+def student_enrollments(request, student_id):
+    # Retrieve the student based on the student_id
+    student = get_object_or_404(StudentModel, id=student_id)
+
+    # Retrieve all enrollments for the student
+    enrollments = Enrollment.objects.filter(student=student)
+
+    # Create a list of enrollment details
+    enrollment_list = []
+    for enrollment in enrollments:
+        enrollment_info = {
+            'course_title': enrollment.course.title,
+            'enrollment_date': enrollment.enrollment_date.strftime('%Y-%m-%d'),
+            'instructors': [f"{instructor.first_name} {instructor.last_name}" for instructor in enrollment.course.instructors.all()],
+            'department': enrollment.course.department.name,
+        }
+        enrollment_list.append(enrollment_info)
+
+    # Return the enrollment details as JSON response
+    return JsonResponse({'enrollments': enrollment_list})
+
+
 
 from .models import Instructor,Enrollment
 from .serializers import InstructorSerializer,ExpertiseSerializer
    
+
+def instructor_profile(request, instructor_id):
+    try:
+        instructor = Instructor.objects.get(id=instructor_id)
+        courses = instructor.course_set.all()
+
+        if courses:
+            # Assuming the instructor is associated with at least one course
+            department = courses[0].department.name
+        else:
+            department = "Not assigned to any department"  # Handle the case when there are no courses
+
+        # Create a dictionary with the required instructor details
+        instructor_data = {
+            'first_name': instructor.first_name,
+            'last_name': instructor.last_name,
+            'email': instructor.email,
+            'department': department,
+            'courses': [course.title for course in courses]
+        }
+
+        return JsonResponse(instructor_data)
+    except Instructor.DoesNotExist:
+        return JsonResponse({'error': 'Instructor not found'}, status=404)
+
 
 # login route
 @api_view(['POST'])
@@ -177,8 +234,13 @@ def varifyintructor(request):
             if not check_password(password, user.password):  # Compare the passwords
                 return JsonResponse({"ok": False, "msg": "Invalid email or password"})
 
-            payload = {"userId": user.id}
-            secret_key = "rajtupe987"  # Replace with your actual secret key
+            # Calculate the expiration time (1 minute from the current time)
+            expiration_time = datetime.utcnow() + timedelta(minutes=10)
+
+            payload = {"instructorId": user.id,"instructorName": user.first_name,
+                       "exp": expiration_time}
+            
+            secret_key = "lotusschoole"  # Replace with your actual secret key
             token = jwt.encode(payload, secret_key, algorithm='HS256').decode('utf-8')  # Decode the bytes to string
 
             response = {
@@ -198,7 +260,12 @@ def varifyintructor(request):
 
 
 
-# ALL about Admin
+
+
+
+
+
+                  # ALL about Admin
 
 
 @api_view(['POST'])
@@ -255,6 +322,16 @@ def delete_student(request, student_id):
     return Response({"message": "Student deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
 
+
+@api_view(['POST'])
+def create_assignment(request):
+    serializer = AssignmentSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "Assignment created successfully."}, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 from rest_framework.decorators import api_view
 from .models import Department
@@ -375,13 +452,3 @@ def get_all_courses(request):
 
     return Response(response_data, status=status.HTTP_200_OK)
 
-# views.py
-
-from .models import Department
-from .serializers import DepartmentWithCoursesSerializer
-
-@api_view(['GET'])
-def get_departments_with_courses_and_students(request):
-    departments = Department.objects.all()
-    serializer = DepartmentWithCoursesSerializer(departments, many=True)
-    return Response(serializer.data, status=status.HTTP_200_OK)

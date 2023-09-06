@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'lotusedt.middleware.jwt_middleware.JWTMiddleware',
+    'lotusedt.middleware.jwt_middleware.JWTInstructorMiddleware'
 ]
 
 
@@ -102,6 +103,8 @@ DATABASES = {
         'PORT': '3306',       # Default MySQL port
     }
 }
+
+
 
 
 # Password validation

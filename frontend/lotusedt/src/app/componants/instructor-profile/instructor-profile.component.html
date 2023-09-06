@@ -1,0 +1,18 @@
+
+<div class="card">
+    <div class="card-header">
+      <h2>Instructor Profile</h2>
+    </div>
+    <div class="card-body">
+      <div *ngIf="instructorData">
+        <h3>{{ instructorData.first_name }} {{ instructorData.last_name }}</h3>
+        <p>Email: {{ instructorData.email }}</p>
+        <p>Department: {{ instructorData.department }}</p>
+        <p>Courses: {{ instructorData.courses.join(', ') }}</p>
+      </div>
+      <div *ngIf="!instructorData">
+        <p>Loading instructor profile...</p>
+      </div>
+    </div>
+  </div>
+  

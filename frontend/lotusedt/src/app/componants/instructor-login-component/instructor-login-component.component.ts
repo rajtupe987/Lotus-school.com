@@ -11,7 +11,7 @@ export class InstructorLoginComponentComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   login() {
     const loginData = {
@@ -22,9 +22,24 @@ export class InstructorLoginComponentComponent {
     // Send the POST request
     this.http.post('http://localhost:8000/verify-intructor', loginData)
       .subscribe(
-        (response) => {
+        (response: any) => {
           // This block is executed if the login is successful
           console.log('Login successful:', response);
+
+          console.log(response)
+          // Access the data from the response
+          const token = response.token;
+          const msg = response.msg;
+          const id = response.id;
+          const name = response.name;
+
+          alert(response.msg)
+          // You can also perform additional actions, such as storing the token in localStorage
+          localStorage.setItem("Token_of_instructor", token);
+          localStorage.setItem("Instructor_id", id);
+          localStorage.setItem("Instructor_name", name);
+
+
         },
         (error) => {
           // This block is executed if there's an error during login
@@ -32,4 +47,24 @@ export class InstructorLoginComponentComponent {
         }
       );
   }
+
+  clear_In_token(): void {
+    if (localStorage.getItem("Token_of_instructor")) {
+      // Clear the token from local storage or wherever it's stored
+      localStorage.removeItem('Token_of_instructor');
+      if (localStorage.getItem("Instructor_name")) {
+        localStorage.removeItem('Instructor_name')
+      }
+      if (localStorage.getItem("Instructor_id")) {
+        localStorage.removeItem("Instructor_id")// You need to replace 'token' with your actual token key
+
+      }
+      alert("You are succseccfully logged out")
+    } else {
+      alert("You are already logged out")
+    }
+
+
+  }
+
 }

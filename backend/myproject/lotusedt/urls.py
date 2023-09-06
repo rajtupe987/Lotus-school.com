@@ -20,8 +20,9 @@ urlpatterns = [
     path('instructors/', get_all_instructors, name='get_all_instructors'),
     path('enroll/', enroll_student, name='enroll-student'),
     path('each_course/<int:course_id>/', get_course_details, name='get_course_details'),
-    path('departments_with_courses_and_students/', views.get_departments_with_courses_and_students, name='get_departments_with_courses_and_students'),
-    
+    path('students/<int:student_id>/', views.student_enrollments, name='student_profile'),
+    path('instructors_profile/<int:instructor_id>', views.instructor_profile, name='instructor_profile'),
+    path('api/assignments/create/',views.create_assignment, name='create-assignment'),
     # path("get_all_users/",views.get_all_users,name="get_all_users")
     # path('login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair')
 ]

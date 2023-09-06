@@ -8,8 +8,9 @@ import { InstructorPageComponent } from './componants/instructor-page/instructor
 import { AllcoursesComponent } from './componants/allcourses/allcourses.component';
 import { RegisterComponent } from './componants/register/register.component';
 import { CreatecourseComponent } from './componants/createcourse/createcourse.component';
-
-
+import { StudentprofileComponent } from './componants/studentprofile/studentprofile.component';
+import { InstructorProfileComponent } from './componants/instructor-profile/instructor-profile.component';
+import { AssignmentComponent } from './componants/assignment/assignment.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'/home',pathMatch:'full'},
@@ -17,7 +18,17 @@ const routes: Routes = [
   {path:'instructor-page',redirectTo:'/instructor-page',pathMatch:'full'},
   {path:'register-student',redirectTo:'/register-student',pathMatch:'full'},
   {path:'creat-course',redirectTo:'./creat-course'},
+  {path:'student-profile',redirectTo:'./student-profile'},
   {path:'register-student',component:RegisterComponent},
+  {path:'student-profile',component:StudentprofileComponent},
+  
+
+  {path:'Instructor-profile',component:InstructorProfileComponent},
+  {path:"Instructor-profile",redirectTo:'./Instructor-profile'},
+ 
+  {path:'create-assignment',component:AssignmentComponent},
+  {path:'create-assignment',redirectTo:'./create-assignment'},
+ 
   {path:'creat-course',component:CreatecourseComponent},
   {path:'all-courses',component:AllcoursesComponent},
   {path:'all-courses',redirectTo:'/all-courses',pathMatch:'full'},

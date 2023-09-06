@@ -65,11 +65,11 @@
         <p>Instructors: {{ getInstructorsString(selectedCourse.instructors) }}</p>
         <p>Department: {{ selectedCourse.department.name }}</p>
         <p>Created At: {{ selectedCourse.created_at | date }}</p>
-      
+
         <!-- Enrollment Form -->
         <form (submit)="enrollInCourse(selectedCourse.id)" name="enrollmentForm" required>
           <h4>Fill the deteials and Enroll</h4>
-          
+
           <label for="enrollment_date">Enrollment Date:</label>
           <input type="date" id="enrollment_date" [(ngModel)]="enrollmentData.enrollment_date" required>
           <button type="submit">Enroll</button>

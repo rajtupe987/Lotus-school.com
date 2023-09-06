@@ -13,6 +13,9 @@ import { InstructorPageComponent } from './componants/instructor-page/instructor
 import { AllcoursesComponent } from './componants/allcourses/allcourses.component';
 import { RegisterComponent } from './componants/register/register.component';
 import { CreatecourseComponent } from './componants/createcourse/createcourse.component';
+import { StudentprofileComponent } from './componants/studentprofile/studentprofile.component';
+import { InstructorProfileComponent } from './componants/instructor-profile/instructor-profile.component';
+import { AssignmentComponent } from './componants/assignment/assignment.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { CreatecourseComponent } from './componants/createcourse/createcourse.co
     InstructorPageComponent,
     AllcoursesComponent,
     RegisterComponent,
-    CreatecourseComponent
+    CreatecourseComponent,
+    StudentprofileComponent,
+    InstructorProfileComponent,
+    AssignmentComponent
   ],
   imports: [
     BrowserModule,

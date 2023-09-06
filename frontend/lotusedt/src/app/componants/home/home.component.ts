@@ -1,5 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import * as jwt_decode from 'jwt-decode'; // Import the jwt-decode library
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,7 @@ export class HomeComponent implements OnInit{
 
   ngOnInit(): void {
     this.fetchDepartments();
+    const token=localStorage.getItem('token');
     // Check if user name is present in local storage
     this.userName = localStorage.getItem('userName');
     this.isAuthenticated = !!this.userName;

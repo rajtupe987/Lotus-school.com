@@ -21,9 +21,6 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}get-all-expertise/`);
   }
 
-  login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.baseUrl}verify-instructor`, credentials);
-  }
 
   signup(userData: any): Observable<any> {
     const url = `${this.baseUrl}register`;

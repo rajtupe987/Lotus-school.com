@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Instructor,Expertise,StudentModel, Department, Enrollment
+from .models import Instructor,Expertise,StudentModel, Department,Assignment, Enrollment
 
 class InstructorSerializer(serializers.ModelSerializer):
     expertise = serializers.PrimaryKeyRelatedField(queryset=Expertise.objects.all(), many=True)
@@ -73,32 +73,10 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-# serializers.py
 
-from rest_framework import serializers
 
-class EnrolledStudentSerializer(serializers.ModelSerializer):
+
+class AssignmentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = StudentModel
-        fields = ['id', 'first_name', 'last_name', 'email', 'age']  # Include the fields you need
-
-
-# serializers.py
-
-class CourseWithEnrolledStudentsSerializer(serializers.ModelSerializer):
-    enrolled_students = EnrolledStudentSerializer(many=True, read_only=True, source='enrollments.student')
-
-    class Meta:
-        model = Course
-        fields = ['id', 'title', 'description', 'enrolled_students']
-
-
-# serializers.py
-
-class DepartmentWithCoursesSerializer(serializers.ModelSerializer):
-    courses = CourseWithEnrolledStudentsSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Department
-        fields = ['id', 'name', 'courses']
-
+        model = Assignment
+        fields = '__all__'

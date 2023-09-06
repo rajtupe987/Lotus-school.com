@@ -5,4 +5,11 @@ export interface InstructorData {
     password: string;
     expertise: number[]; // Change this type based on your data structure
   }
+  interface LoginResponse {
+    ok: boolean;
+    token: string;
+    msg: string;
+    id: number;
+    name: string;
+  }
   
