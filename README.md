@@ -72,9 +72,3 @@ To interact with the Lotus School Management System, you can use the following A
   - `PUT /announcements/{announcement_id}`: Update details of a specific announcement.
   - `DELETE /announcements/{announcement_id}`: Delete an announcement.
 
-## Getting Started
-
-1. Clone this repository to your local machine.
-2. Set up your Django project environment and configure the database.
-3. Run migrations to create the necessary database tables.
-4. Start the Django development server.
