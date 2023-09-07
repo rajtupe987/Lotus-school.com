@@ -3,6 +3,7 @@ from . import views
 from .views import register,login,varifyintructor,create_expertise,get_all_expertise,create_department,create_course,update_course,delete_course,get_departments_with_courses,get_all_courses,get_all_instructors,enroll_student,get_course_details
 
 urlpatterns = [
+   
     path("",views.welcome_path,name="welcome"),
     path('register', register, name='register'),
     path('login', login, name='login'),
@@ -23,6 +24,8 @@ urlpatterns = [
     path('students/<int:student_id>/', views.student_enrollments, name='student_profile'),
     path('instructors_profile/<int:instructor_id>', views.instructor_profile, name='instructor_profile'),
     path('api/assignments/create/',views.create_assignment, name='create-assignment'),
+    path('api/enrolled-students/', views.enrolled_students_with_courses_and_departments, name='enrolled-students'),
+    path('chatbot/', views.ChatbotView.as_view(), name='chatbot'),
     # path("get_all_users/",views.get_all_users,name="get_all_users")
     # path('login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair')
 ]

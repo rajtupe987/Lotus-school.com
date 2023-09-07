@@ -80,3 +80,20 @@ class AssignmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Assignment
         fields = '__all__'
+
+
+
+class StudentEnrollmentSerializer(serializers.ModelSerializer):
+    enrollment_set = EnrollmentSerializer(many=True, read_only=True)
+    department = serializers.SerializerMethodField()
+
+    class Meta:
+        model = StudentModel
+        fields = ('name', 'enrollment_set', 'department')
+
+    def get_department(self, obj):
+        # Assuming you have a department associated with the student's enrollment.
+        # You may need to adjust this logic based on your actual data structure.
+        if obj.enrollment_set.exists():
+            return obj.enrollment_set.first().course.department.name
+        return None

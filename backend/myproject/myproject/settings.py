@@ -92,18 +92,26 @@ CORS_ALLOWED_ORIGINS = [
 ]
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+from decouple import config
+
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'lotusescool',
-        'USER': 'root',
-        'PASSWORD': 'Diljit@987',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
         'HOST': 'localhost',  # Change if your database is on a different host
         'PORT': '3306',       # Default MySQL port
     }
 }
 
+# from decouple import config
+
+# SECRET_KEY = config('SECRET_KEY')
+# DB_NAME = config('DB_NAME')
+# DB_USER = config('DB_USER')
+# DB_PASSWORD = config('DB_PASSWORD')
 
 
 
