@@ -11,6 +11,9 @@ import { CreatecourseComponent } from './componants/createcourse/createcourse.co
 import { StudentprofileComponent } from './componants/studentprofile/studentprofile.component';
 import { InstructorProfileComponent } from './componants/instructor-profile/instructor-profile.component';
 import { AssignmentComponent } from './componants/assignment/assignment.component';
+import { TotalenrolledComponent } from './componants/totalenrolled/totalenrolled.component';
+import { ChatbotComponent } from './componants/chatbot/chatbot.component';
+
 
 const routes: Routes = [
   {path:'',redirectTo:'/home',pathMatch:'full'},
@@ -25,10 +28,14 @@ const routes: Routes = [
 
   {path:'Instructor-profile',component:InstructorProfileComponent},
   {path:"Instructor-profile",redirectTo:'./Instructor-profile'},
- 
+  
   {path:'create-assignment',component:AssignmentComponent},
   {path:'create-assignment',redirectTo:'./create-assignment'},
  
+  {path:'chat-bot',redirectTo:'./chat-bot'},
+  {path:'chat-bot',component:ChatbotComponent},
+  {path:'total-enrolled',redirectTo:'./total-enrolled'},
+  {path:"total-enrolled",component:TotalenrolledComponent},
   {path:'creat-course',component:CreatecourseComponent},
   {path:'all-courses',component:AllcoursesComponent},
   {path:'all-courses',redirectTo:'/all-courses',pathMatch:'full'},

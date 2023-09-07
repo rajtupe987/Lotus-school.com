@@ -1,0 +1,34 @@
+<div class="chat-button" (click)="toggleChatBox()">
+  <button class="toggle-button">Toggle Chat</button>
+</div>
+
+<div class="chat-container" *ngIf="showChatbox">
+
+  <div class="chat-container">
+    <div class="chat-header">
+      Ask me anything!
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <!-- Chat messages will be displayed here -->
+
+      <div class="message bot-message" *ngIf="botResponse">{{ botResponse }}</div>
+      <div class="message incoming">
+        <div class="message-text" *ngIf="userInput">{{ userInput }}</div>
+        <!-- <div class="message-text">Hey, how's it going?</div> -->
+      </div>
+      <div class="message outgoing">
+        <div class="message-text" *ngIf="userInput">{{ userInput }}</div>
+        <!-- <div class="message-text">Hey! I'm good. How about you?</div> -->
+      </div>
+      <!-- More messages... -->
+    </div>
+    <div class="chat-input">
+      <input class="chat-input" type="text" placeholder="Type a message..." [(ngModel)]="userInput"
+        (keyup.enter)="sendUserInput()" id="user-input" />
+      <!-- <input type="text" id="user-input" placeholder="Type a message..."> -->
+      <!-- <button id="send-button">Send</button> -->
+      <button id="send-button" (click)="sendUserInput()">Send</button>
+    </div>
+  </div>
+
+</div>

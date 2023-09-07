@@ -16,6 +16,8 @@ import { CreatecourseComponent } from './componants/createcourse/createcourse.co
 import { StudentprofileComponent } from './componants/studentprofile/studentprofile.component';
 import { InstructorProfileComponent } from './componants/instructor-profile/instructor-profile.component';
 import { AssignmentComponent } from './componants/assignment/assignment.component';
+import { TotalenrolledComponent } from './componants/totalenrolled/totalenrolled.component';
+import { ChatbotComponent } from './componants/chatbot/chatbot.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { AssignmentComponent } from './componants/assignment/assignment.componen
     CreatecourseComponent,
     StudentprofileComponent,
     InstructorProfileComponent,
-    AssignmentComponent
+    AssignmentComponent,
+    TotalenrolledComponent,
+    ChatbotComponent
   ],
   imports: [
     BrowserModule,
