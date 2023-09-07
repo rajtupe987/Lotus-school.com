@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as jwt_decode from 'jwt-decode'; // Import the jwt-decode library
+import { ChatbotService } from '../../../app/chatbot.service'
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ export class HomeComponent implements OnInit{
   userName: string | null = null;
   departments: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private chatbotService: ChatbotService) {}
 
   toggleCourses(department: any): void {
     department.showCourses = !department.showCourses;
@@ -37,6 +38,38 @@ export class HomeComponent implements OnInit{
     );
   }
 
+
+
+
+  userInput: string = '';
+  botResponse: string = '';
+  showChatbox = false;
+
+  async sendUserInput() {
+    if (this.userInput.trim() === '') {
+      return;
+    }
+
+    const userMessage = this.userInput;
+    this.userInput = '';
+
+    try {
+      const response = await this.chatbotService.getBotResponse(userMessage);
+      this.botResponse = response;
+
+      // Add the user's message and bot's response to chat history
+
+    } catch (error) {
+      console.error('Error:', error);
+      this.botResponse = 'An error occurred while processing your request.';
+    }
+  }
+
+
+  toggleChatBox() {
+    this.showChatbox = !this.showChatbox;
+    
+  }
 }
 
 

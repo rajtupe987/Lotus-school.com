@@ -5,7 +5,7 @@
     </div>
     <ul class="nav-links">
       <li><a href="http://localhost:4200/home">Way to Home</a></li>
-      <li><a href="">Courses</a></li>
+      <li *ngIf="isInstructorLoggedIn"><a href="http://localhost:4200/total-enrolled">Courses</a></li>
       <li><a href="">Assignments</a></li>
       <li><a href="">submission</a></li>
      <li *ngIf="isInstructorLoggedIn"><a href="http://localhost:4200/create-assignment">Create Assignment</a></li>

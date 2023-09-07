@@ -1,0 +1,51 @@
+/* enrolled-students.component.css */
+
+/* Style for the container */
+.container {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+  }
+  
+  /* Style for the total enrolled students count */
+  .total-count {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  /* Style for each student's card */
+  .student-card {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+  
+  /* Style for student's name */
+  .student-name {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  /* Style for student's department */
+  .student-department {
+    font-size: 14px;
+    color: #888;
+  }
+  
+  /* Style for the list of courses */
+  .course-list {
+    margin-top: 10px;
+    padding-left: 20px;
+  }
+  
+  /* Style for each course item */
+  .course-item {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  

@@ -1,0 +1,16 @@
+<!-- enrolled-students.component.html -->
+
+<div class="container" *ngIf="enrolledStudentsData">
+    <p class="total-count">Total Enrolled Students: {{ enrolledStudentsData.total_enrolled_students }}</p>
+    <div *ngFor="let student of enrolledStudentsData.enrolled_students" class="student-card">
+      <p class="student-name">Name: {{ student.name }}</p>
+      <p class="student-department">Department: {{ student.department }}</p>
+      <p>Courses:</p>
+      <ul class="course-list">
+        <li *ngFor="let course of student.enrollment_set" class="course-item">
+          {{ course.course.title }} - {{ course.course.description }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  

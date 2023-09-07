@@ -1,6 +1,7 @@
 import jwt
 from django.http import JsonResponse
 from ..models import StudentModel,Instructor
+from decouple import config
 
 class JWTMiddleware:
     def __init__(self, get_response):
@@ -23,8 +24,7 @@ class JWTMiddleware:
 
             try:
                 # Verify and decode the token
-                print("hi")
-                decoded_token = jwt.decode(token, 'rajtupe987', algorithms=['HS256'])
+                decoded_token = jwt.decode(token,config('SECRET_KEY'), algorithms=['HS256'])
                 user_id = decoded_token.get('userId')
                 user_name = decoded_token.get('userName')  # Extract the user's name
 
